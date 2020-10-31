@@ -25,10 +25,6 @@ mnist_test_images = mnist_test_images.reshape( len(mnist[1][0]), 28*28 )
 for i in range( num_example ):
     mnist_train_images[i] = ( mnist_train_images[i] - np.mean(mnist_train_images[i]) ) / np.std(mnist_train_images[i])
     mnist_train_images[i] = np.float32( mnist_train_images[i] )
-    
-    if i%600 == 0:
-        print('---Standardizing '+ str( float(i)*100/float(num_example) ) +' percent finished---' )
-
 
 print("\n <------------ Standardization finished ------------> \n")
 
