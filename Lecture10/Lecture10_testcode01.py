@@ -2,6 +2,8 @@
 
 import tensorflow as tf 
 import numpy as np 
+import matplotlib.pyplot as plt 
+import random
 
 tf.compat.v1.disable_eager_execution()
 tf.compat.v1.set_random_seed( 777 )
@@ -68,7 +70,27 @@ with tf.compat.v1.Session() as sess:
 
     print("Learning Finished!")
 
+    # Test model and check accuracy
     print(
         "Accuracy:",
         sess.run(accuracy, feed_dict={X: x_test, Y: y_test_onehot}),
     )
+    print('<------------------------------------------------------->')
+    
+    # Get one and predict
+    r = random.randint( 0, len(x_test)-1 )
+
+    print("Label: ", sess.run(tf.argmax(y_test_onehot[r : r + 1], axis=1)))
+    print(
+        "Prediction: ",
+        sess.run(
+            tf.argmax(hypothesis, axis=1), feed_dict={X: x_test[r : r + 1]}
+        ),
+    )
+    
+    plt.imshow(
+        x_test[r : r + 1].reshape(28, 28),
+        cmap="Greys",
+        interpolation="nearest",
+    )
+    plt.show()
